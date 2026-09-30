@@ -1,7 +1,7 @@
 # Doctrina de conscience
 
 Estado: activo
-Version: 1.0 - 2026-09-30
+Version: 1.1 - 2026-09-30
 
 Diseno ya reconciliado de esta capa: QUE es conscience y como se relaciona con
 el resto del ente. La base conceptual de COMO delibera esta en
@@ -20,6 +20,12 @@ decisiones de origen siguen en el core y no se mueven: son historia.
   - **Modo sueno**: con el core en reposo (quiesce, capacidad administrativa
     futura del core con su propio ADR), revisa en batch la telemetria del dia
     para contextualizar, aprender y generar nuevas tramas de memoria.
+
+    **Disparador pendiente (quiesce).** El modo sueno necesita que el core pueda
+    ponerse en reposo, y esa capacidad (`core docs/PLAN.md`, fase v0.2-4) esta
+    DIFERIDA hasta que exista su consumidor. Sembrar este repo no la activa: el
+    consumidor es la IMPLEMENTACION del modo sueno. Antes de empezar a
+    implementarlo, primer paso: abrir un CR al core para reactivar esa fase.
 - Sistema nervioso VOLUNTARIO del ente, frente a pulse, el involuntario
   (`core ADR 0037`). Lo voluntario puede vetar lo involuntario.
 - No ejecuta el pensar que supervisa: la orquestacion es del core

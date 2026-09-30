@@ -1,7 +1,7 @@
 # Fundamentos de la deliberacion de conscience
 
 Estado: propuesta
-Version: 0.4 - 2026-09-30
+Version: 0.5 - 2026-09-30
 
 Base conceptual de COMO delibera conscience. No fija contrato, ni esquema
 definitivo, ni codigo: fija los conceptos que el diseno posterior tiene que
@@ -307,6 +307,25 @@ Condiciones para adoptar Jev o cualquier juez de este tipo:
    (C5, perfil de hardware).
 3. **Su familia cuenta** para la correlacion oculta (C8), como cualquier voz.
 
+Candidatos locales (2026-09-30; Jev no publica pesos):
+
+- **Laya**: reimplementacion abierta compatible con Jev (encoder ModernBERT +
+  cabeza de decision), con tipos `choice`, `score` y `noul` (P(verdadero)). Corre
+  en CPU por ONNX, unos 2 GB de RAM: deja la GPU libre para el comite. Madurez
+  temprana. Candidato principal para el juez general.
+- **Modelos especializados en Ollama**: Bespoke-MiniCheck (si una frase esta
+  respaldada por un documento: verificacion de `source_refs`, C1), Granite
+  Guardian (riesgo e inyeccion con probabilidad: filtro de entrada de la
+  adquisicion, C9), ShieldGemma 2B.
+- **Via generica**: un modelo pequeno de Ollama con salida estructurada y
+  `logprobs`, calibrado despues con los datos de C10.
+
+Aviso ya medido fuera: una auditoria independiente de Jev sobre preguntas
+ambiguas de sesgo encontro que, al quitarle la opcion "desconocido", eligio el
+estereotipo en el 79% de los casos. Calibrado no significa imparcial. Para una
+conciencia, esto obliga a probar al juez con cuestiones eticas ambiguas antes de
+darle ninguna autoridad, y a que siempre pueda responder "no lo se".
+
 ## 5. Perfil de hardware objetivo
 
 La capa debe funcionar en una GPU de consumo de 6 GB de VRAM, sin tensor cores.
@@ -341,8 +360,8 @@ Es una restriccion de diseno, no un dato de la maquina:
    (la carta, seccion 15).
 7. Puerta de laboratorio de esta capa: que control EXTERNO dice que una
    deliberacion fue buena (`meta ADR 0010`).
-8. Juez de C11: si existe una alternativa local calibrada, o si se reconcilia
-   una excepcion para un juez remoto, y con que alcance.
+8. Juez de C11: validar Laya (o alternativa) en local contra casos propios, o
+   reconciliar una excepcion para un juez remoto, y con que alcance.
 
 ## 7. Lo que este documento no decide
 
