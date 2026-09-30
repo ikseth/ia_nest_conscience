@@ -1,7 +1,7 @@
 # Fundamentos de la deliberacion de conscience
 
 Estado: propuesta
-Version: 0.3 - 2026-09-30
+Version: 0.4 - 2026-09-30
 
 Base conceptual de COMO delibera conscience. No fija contrato, ni esquema
 definitivo, ni codigo: fija los conceptos que el diseno posterior tiene que
@@ -266,6 +266,47 @@ indicador `is_auto_consensus` seguia a `true` tras una revision humana. Es el
 fallo que describe la carta: metadatos que atribuyen mal la autoridad. En C1, el
 `lineage` distingue siempre decision automatica de decision humana.
 
+### C11. Juez calibrado: el Sistema 1 de la conciencia
+
+El comite es lento y caro: es el Sistema 2 (deliberar). Hace falta tambien un
+Sistema 1: una pieza rapida que, ante una cuestion TIPADA, elija entre opciones
+cerradas y devuelva una confianza CALIBRADA, para actuar cuando la confianza es
+alta y escalar cuando no lo es.
+
+Es el papel que describe Jev (TypeSafe AI, `https://typesafe.ai/`): un modelo
+de "System One" que produce decisiones tipadas con probabilidad calibrada,
+entrenado con aprendizaje por refuerzo orientado a calibracion. Se registra
+como PATRON, no como dependencia.
+
+Donde encaja:
+
+- **Modo live** (C6): el juez rapido por checkpoint. El comite no corre en live.
+- **Contrato de adquisicion** (C9): decidir si una ampliacion de la sabiduria de
+  un miembro entra directa o pasa a revision cruzada. Hace operativa la
+  revision proporcional.
+- **Autonomia ganada** (C10): la confianza calibrada es la senal natural para
+  "consolidar solo" frente a "escalar".
+- Resuelve un riesgo de la carta (seccion 11): la confianza entre modelos no es
+  comparable sin calibracion.
+
+Lo que NO puede hacer: generar argumentos. Elige entre opciones; no construye
+el mejor caso en contra. No sustituye al discrepante ni al comite.
+
+Condiciones para adoptar Jev o cualquier juez de este tipo:
+
+1. **La calibracion se verifica aqui, no se cree.** Una afirmacion de calidad
+   necesita control externo (`meta ADR 0010`). El historial de C10 (lo que el
+   juez decidio frente a lo que decidio el usuario) es ese control, y se
+   recalcula de forma periodica. Un juez seguro y equivocado es el gap de
+   segundo orden en su forma mas rapida.
+2. **Soberania del pensar.** Jev es hoy un servicio remoto. Un juez externo que
+   decide sobre la conciencia del ente choca con `core ADR 0033` (ningun
+   elemento exterior dirige como piensa el ente) y saca contenido del ente a un
+   tercero. Solo seria admisible como voz consultiva, no como juez, salvo
+   excepcion reconciliada; el juez de referencia debe poder correr en local
+   (C5, perfil de hardware).
+3. **Su familia cuenta** para la correlacion oculta (C8), como cualquier voz.
+
 ## 5. Perfil de hardware objetivo
 
 La capa debe funcionar en una GPU de consumo de 6 GB de VRAM, sin tensor cores.
@@ -278,7 +319,8 @@ Es una restriccion de diseno, no un dato de la maquina:
   de 7-8B cuantizado con contexto corto para sintesis. La diversidad se busca en
   familias, no en tamano.
 - **Live casi sin inferencia.** Contrato por checkpoint (C5), engramas ya
-  sedimentados y un unico juez pequeno, con escalado. El comite no corre en live.
+  sedimentados y un unico juez pequeno y calibrado (C11), con escalado. El
+  comite no corre en live.
 - **Embeddings y recuperacion en CPU**, para no competir por la VRAM.
 - **Sustrato propio.** Una GPU dedicada a conscience separa su sustrato del
   core, como pulse separa el suyo en CPU (`core ADR 0037`).
@@ -299,6 +341,8 @@ Es una restriccion de diseno, no un dato de la maquina:
    (la carta, seccion 15).
 7. Puerta de laboratorio de esta capa: que control EXTERNO dice que una
    deliberacion fue buena (`meta ADR 0010`).
+8. Juez de C11: si existe una alternativa local calibrada, o si se reconcilia
+   una excepcion para un juez remoto, y con que alcance.
 
 ## 7. Lo que este documento no decide
 
