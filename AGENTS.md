@@ -13,6 +13,10 @@ registro) viven en `ia_nest_meta` y no se repiten aqui. Lee antes:
    conscience cultiva, y quien puede escribir la identidad)
 6. `README.md` y `docs/FUNDAMENTOS.md` de este repo
 
+Orden entre capas: la hoja de ruta del ente, en `meta docs/plan/HOJA_DE_RUTA.md`
+(meta ADR 0014). Los hilos de un hito salen de meta; el plan de este repo lleva
+solo su detalle interno.
+
 ## Reglas propias de este repo
 
 - **Conscience no ejecuta el pensar que supervisa** (core ADR 0034). No
